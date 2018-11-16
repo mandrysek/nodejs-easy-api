@@ -1,0 +1,212 @@
+openapi: 3.0.0
+info:
+  title: API
+  version: 0.1.0
+servers:
+  - url: http://localhost:3000
+    description: Localhost
+paths:
+  /sign-up:
+    post:
+      summary: Registration
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties: 
+                username:
+                  type: string
+                  example: joe
+                password:
+                  type: string
+                  example: 12345678
+      responses:
+        '201':    # status code
+          description: Sucessfull response
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                  id:
+                    type: string
+                    example: 107f9bac-4814-40eb-8791-b004e7f67a10
+                  username:
+                    type: string
+                    example: joe
+                  password:
+                    type: string
+                    example: 12345678
+  /sign-in:
+    post:
+      summary: Login
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties: 
+                username:
+                  type: string
+                  example: joe
+                password:
+                  type: string
+                  example: 12345678
+      responses:
+        '200':    # status code
+          description: Sucessfull response
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uIjoiNDg1ZWNjYWYtMTRmMi00Y2Y0LTgyNTUtODA1Y2M2MTRlNWQ1IiwiaWF0IjoxNTQyMzgwNDE0fQ.if1bL9948fObFNrjpWfeD4v3ky2h3eEExdOcG3BQji4
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 107f9bac-4814-40eb-8791-b004e7f67a10
+                      username:
+                        type: string
+                        example: joe
+                      password:
+                        type: string
+                        example: 12345678
+  /logout:
+    post:
+      summary: Logout
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+            example: Basic base64_token
+      responses:
+        '204':    # status code
+          description: Sucessfull response
+          
+  /users:
+    get:
+      summary: Get all users
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+            example: Basic base64_token
+      responses:
+        '200':    # status code
+          description: Sucessfull response
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: 107f9bac-4814-40eb-8791-b004e7f67a10
+                    username:
+                      type: string
+                      example: joe
+                    password:
+                      type: string
+                      example: 12345678
+          
+  /users/{id}:
+    get:
+      summary: Get one user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 107f9bac-4814-40eb-8791-b004e7f67a10
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+            example: Basic base64_token
+      responses:
+        '200':    # status code
+          description: Sucessfull response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 107f9bac-4814-40eb-8791-b004e7f67a10
+                  username:
+                    type: string
+                    example: joe
+                  password:
+                    type: string
+                    example: 12345678
+    put:
+      summary: Update user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 107f9bac-4814-40eb-8791-b004e7f67a10
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+            example: Basic base64_token
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties: 
+                username:
+                  type: string
+                  example: joe
+                password:
+                  type: string
+                  example: 12345678
+      responses:
+        '200':    # status code
+          description: Sucessfull response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 107f9bac-4814-40eb-8791-b004e7f67a10
+                  username:
+                    type: string
+                    example: joe
+                  password:
+                    type: string
+                    example: 12345678
+    delete:
+      summary: Remove user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 107f9bac-4814-40eb-8791-b004e7f67a10
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+            example: Basic base64_token
+      responses:
+        '204':    # status code
+          description: Sucessfull response
